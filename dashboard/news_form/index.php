@@ -84,61 +84,73 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $is_edit ? 'Edit News' : 'Submit News' ?></title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #bec8de;
+
+        }
+    </style>
 </head>
+
 <body>
-<div class="container mt-5">
-    <h1 class="mb-4"><?= $is_edit ? 'Edit News Article' : 'Submit New News Article' ?></h1>
+    <div class="container mt-5">
+        <h1 class="mb-4"><?= $is_edit ? 'Edit News Article' : 'Submit New News Article' ?></h1>
 
-    <form method="POST" enctype="multipart/form-data">
-        <?php if ($is_edit): ?>
-            <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
-            <input type="hidden" name="existing_title_pic" value="<?= htmlspecialchars($news['title_pic']) ?>">
-        <?php endif; ?>
-        <div class="mb-3">
-            <label>Title:</label>
-            <input type="text" name="title" class="form-control" value="<?= $is_edit ? htmlspecialchars($news['title']) : '' ?>" required>
-        </div>
-        <div class="mb-3">
-            <label>Body:</label>
-            <textarea name="body" class="form-control" rows="5" required><?= $is_edit ? htmlspecialchars($news['body']) : '' ?></textarea>
-        </div>
-        <div class="mb-3">
-            <label>Genre:</label>
-            <select name="genre_id" class="form-select" required>
-                <?php foreach ($genres as $genre): ?>
-                    <option value="<?= $genre['id'] ?>" <?= $is_edit && $news['genre_id'] == $genre['id'] ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($genre['name']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label>Title Image:</label>
-            <input type="file" name="title_pic" class="form-control">
-            <?php if ($is_edit && $news['title_pic']): ?>
-                <p>Current Image: <img src="<?= htmlspecialchars($news['title_pic']) ?>" alt="Image" style="width: 100px; height: auto;"></p>
-                <div class="form-check">
-                    <input type="checkbox" name="remove_image" value="1" id="removeImage" class="form-check-input">
-                    <label for="removeImage" class="form-check-label">Remove Current Image</label>
-                </div>
+        <form method="POST" enctype="multipart/form-data">
+            <?php if ($is_edit): ?>
+                <input type="hidden" name="news_id" value="<?= $news['id'] ?>">
+                <input type="hidden" name="existing_title_pic" value="<?= htmlspecialchars($news['title_pic']) ?>">
             <?php endif; ?>
-        </div>
-        <div class="form-check mb-3">
-            <input type="checkbox" name="is_anonymous" id="isAnonymous" class="form-check-input" <?= $is_edit && $news['is_anonymous'] ? 'checked' : '' ?>>
-            <label for="isAnonymous" class="form-check-label">Post as Anonymous</label>
-        </div>
-        <button type="submit" class="btn btn-primary"><?= $is_edit ? 'Update News' : 'Submit News' ?></button>
-        <a href="../manage_news" class="btn btn-secondary">Cancel</a>
-    </form>
-</div>
+            <div class="mb-3">
+                <label>Title:</label>
+                <input type="text" name="title" class="form-control"
+                    value="<?= $is_edit ? htmlspecialchars($news['title']) : '' ?>" required>
+            </div>
+            <div class="mb-3">
+                <label>Body:</label>
+                <textarea name="body" class="form-control" rows="5"
+                    required><?= $is_edit ? htmlspecialchars($news['body']) : '' ?></textarea>
+            </div>
+            <div class="mb-3">
+                <label>Genre:</label>
+                <select name="genre_id" class="form-select" required>
+                    <?php foreach ($genres as $genre): ?>
+                        <option value="<?= $genre['id'] ?>" <?= $is_edit && $news['genre_id'] == $genre['id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($genre['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label>Title Image:</label>
+                <input type="file" name="title_pic" class="form-control">
+                <?php if ($is_edit && $news['title_pic']): ?>
+                    <p>Current Image: <img src="<?= htmlspecialchars($news['title_pic']) ?>" alt="Image"
+                            style="width: 100px; height: auto;"></p>
+                    <div class="form-check">
+                        <input type="checkbox" name="remove_image" value="1" id="removeImage" class="form-check-input">
+                        <label for="removeImage" class="form-check-label">Remove Current Image</label>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" name="is_anonymous" id="isAnonymous" class="form-check-input" <?= $is_edit && $news['is_anonymous'] ? 'checked' : '' ?>>
+                <label for="isAnonymous" class="form-check-label">Post as Anonymous</label>
+            </div>
+            <button type="submit" class="btn btn-primary"><?= $is_edit ? 'Update News' : 'Submit News' ?></button>
+            <a href="../manage_news" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

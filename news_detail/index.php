@@ -27,19 +27,28 @@ if (!$news) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($news['title']) ?> - News Portal</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #525e79;
+
+        }
+    </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
             <a class="navbar-brand" href="index.php">News Portal</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -62,9 +71,10 @@ if (!$news) {
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card" style="background-color: #cfefe1">
                     <?php if ($news['title_pic']): ?>
-                        <img src="<?= htmlspecialchars($news['title_pic']) ?>" class="card-img-top" alt="<?= htmlspecialchars($news['title']) ?>">
+                        <img src="<?= htmlspecialchars($news['title_pic']) ?>" class="card-img-top"
+                            alt="<?= htmlspecialchars($news['title']) ?>">
                     <?php endif; ?>
                     <div class="card-body">
                         <h1 class="card-title"><?= htmlspecialchars($news['title']) ?></h1>
@@ -72,7 +82,7 @@ if (!$news) {
                             Category: <?= htmlspecialchars($news['genre_name']) ?>
                         </p>
                         <p class="text-muted">
-                            Author: 
+                            Author:
                             <?= $news['is_anonymous'] ? 'Anonymous' : htmlspecialchars($news['f_name'] . ' ' . $news['l_name']) ?>
                         </p>
                         <p class="card-text"><?= nl2br(htmlspecialchars($news['body'])) ?></p>
@@ -81,7 +91,7 @@ if (!$news) {
             </div>
             <div class="col-md-4">
                 <!-- Sidebar -->
-                <div class="card mb-4">
+                <div class="card mb-4" style="background-color: #a1ddc2">
                     <div class="card-header">
                         <h5>More News</h5>
                     </div>
@@ -91,9 +101,10 @@ if (!$news) {
                         $stmt = $pdo->query('SELECT id, title FROM news ORDER BY created_at DESC LIMIT 5');
                         $more_news = $stmt->fetchAll();
                         foreach ($more_news as $more_article):
-                        ?>
-                            <li class="list-group-item">
-                                <a href="news_detail.php?id=<?= $more_article['id'] ?>"><?= htmlspecialchars($more_article['title']) ?></a>
+                            ?>
+                            <li class="list-group-item" style="background-color: #cfefe1">
+                                <a
+                                    href="news_detail.php?id=<?= $more_article['id'] ?>"><?= htmlspecialchars($more_article['title']) ?></a>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -112,4 +123,5 @@ if (!$news) {
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

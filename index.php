@@ -24,19 +24,35 @@ $is_logged_in = isset($_SESSION['user_id']);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Portal</title>
+    <title>Madimo news</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #525e79;
+
+        }
+
+
+        .hero-section {
+            background: url('uploads/siteBanner4.jpg') no-repeat center center/cover;
+            color: white;
+            height: 400px;
+        }
+    </style>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="index.php">News Portal</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="index.php">News Portal </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -52,7 +68,8 @@ $is_logged_in = isset($_SESSION['user_id']);
                     </li>
                     <!-- News by Genre Dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="genreDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             News by Genre
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="genreDropdown">
@@ -60,11 +77,14 @@ $is_logged_in = isset($_SESSION['user_id']);
                             <li>
                                 <a class="dropdown-item" href="/">همه</a>
                             </li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <!-- Dynamic Genre List -->
                             <?php foreach ($genres as $genre): ?>
                                 <li>
-                                    <a class="dropdown-item" href="?genre_id=<?= $genre['id'] ?>"><?= htmlspecialchars($genre['name']) ?></a>
+                                    <a class="dropdown-item"
+                                        href="?genre_id=<?= $genre['id'] ?>"><?= htmlspecialchars($genre['name']) ?></a>
                                 </li>
                             <?php endforeach; ?>
                         </ul>
@@ -73,7 +93,7 @@ $is_logged_in = isset($_SESSION['user_id']);
                 <!-- Conditional Buttons -->
                 <div class="d-flex ms-3">
                     <?php if ($is_admin): ?>
-                        <a href="/dashboard" class="btn btn-warning me-2">Dashboard</a>
+                        <a href="/dashboard" class="btn btn-info me-2">Dashboard</a>
                     <?php elseif ($can_write || $can_edit): ?>
                         <a href="/dashboard/manage_news" class="btn btn-info me-2">Manage Articles</a>
                     <?php endif; ?>
@@ -88,24 +108,29 @@ $is_logged_in = isset($_SESSION['user_id']);
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-light py-5">
+    <header class="hero-section py-5">
         <div class="container text-center">
-            <h1 class="display-4">Welcome to the News Portal</h1>
-            <p class="lead">Stay updated with the latest news from around the world.</p>
+            <h1 class="display-4"
+                style="font-size: 4rem; font-weight: bold; text-shadow: 2px 2px 5px rgba(20, 34, 49, 0.71); color:rgb(193, 204, 229);">
+                Welcome to Madimo News</h1>
+
+            
         </div>
     </header>
 
     <!-- News Section -->
     <section id="news" class="py-5">
         <div class="container">
-            <h2 class="mb-4"><?= isset($_GET['genre_id']) ? 'News by Genre' : 'Latest News' ?></h2>
+            <h2 class="mb-4 text-white"><?= isset($_GET['genre_id']) ? 'News by Genre' : 'Latest News' ?></h2>
+
             <div class="row">
                 <?php if (!empty($news_list)): ?>
-                    <?php foreach ($news_list as $news): ?>
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100">
+                    <?php foreach ($news_list as $index => $news): ?>
+                        <div class="col-md-<?= $index === 0 ? '8' : '4' ?> mb-4">
+                            <div class="card h-100" style="background-color: #cfefe1">
                                 <?php if ($news['title_pic']): ?>
-                                    <img src="<?= htmlspecialchars($news['title_pic']) ?>" class="card-img-top" alt="<?= htmlspecialchars($news['title']) ?>" style="height: 200px; object-fit: cover;">
+                                    <img src="<?= htmlspecialchars($news['title_pic']) ?>" class="card-img-top"
+                                        alt="<?= htmlspecialchars($news['title']) ?>" style="height: 200px; object-fit: cover;">
                                 <?php endif; ?>
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($news['title']) ?></h5>
@@ -133,4 +158,5 @@ $is_logged_in = isset($_SESSION['user_id']);
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
